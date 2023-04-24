@@ -81,8 +81,13 @@ $("#registrarPonto").on("click", function () {
                 cpfInput.val("");
                 modal.hide();
             } else {
-                alert("Erro ao registrar o ponto.");
+                alert("Erro ao registrar o ponto: " + data.error);
             }
+        } else {
+            alert("Erro ao registrar o ponto.");
         }
+    }).fail(function (xhr, textStatus, errorThrown) {
+        alert("Erro ao registrar o ponto: " + textStatus + " " + errorThrown);
     });
 });
+
