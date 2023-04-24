@@ -42,11 +42,20 @@ $("#cpfForm").on("submit", function (e) {
         $.post("buscar_funcionario.php", { cpf }, function (response) {
             if (response) {
                 const funcionario = JSON.parse(response);
+                const hora_entrada = funcionario.hora_entrada ? funcionario.hora_entrada : "";
+                const intervalo_inicio = funcionario.intervalo_inicio ? funcionario.intervalo_inicio : "";
+                const intervalo_fim = funcionario.intervalo_fim ? funcionario.intervalo_fim : "";
+                const hora_saida = funcionario.hora_saida ? funcionario.hora_saida : "";
+
                 infoFuncionario.html(`
             <p>Nome: ${funcionario.nome}</p>
             <p>Cargo: ${funcionario.cargo}</p>
             <p>Data de Admissão: ${funcionario.data_admissao}</p>
-            `);
+            <p>Horário de Entrada: ${hora_entrada}</p>
+            <p>Início do Intervalo: ${intervalo_inicio}</p>
+            <p>Fim do Intervalo: ${intervalo_fim}</p>
+            <p>Horário de Saída: ${hora_saida}</p>
+          `);
                 modal.show();
             } else {
                 alert("Funcionário não encontrado.");
@@ -64,8 +73,16 @@ $("#fecharModal").on("click", function () {
 $("#registrarPonto").on("click", function () {
     const cpf = cpfInput.val();
     $.post("registrar_ponto.php", { cpf }, function (response) {
-        alert(response);
-        cpfInput.val("");
-        modal.hide();
+        if (response) {
+            const data = JSON.parse(response);
+
+            if (data.success) {
+                alert("Registro de " + data.nextEvent + " confirmado.");
+                cpfInput.val("");
+                modal.hide();
+            } else {
+                alert("Erro ao registrar o ponto.");
+            }
+        }
     });
 });
