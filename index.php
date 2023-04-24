@@ -1,8 +1,9 @@
 <!DOCTYPE html>
-<html lang="pt">
+<html lang="pt-br">
 
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registro de Ponto</title>
     <link rel="stylesheet" href="styles.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -10,16 +11,17 @@
 
 <body>
     <h1>Registro de Ponto</h1>
+
     <form id="cpfForm">
         <label for="cpf">CPF:</label>
-        <input type="text" name="cpf" id="cpf" minlength="11" maxlength="11" readonly>
-        <br>
-        <div id="tecladoNumerico">
-            <!-- Adicione os botões do teclado numérico aqui -->
-        </div>
-        <br>
-        <input type="submit" value="Confirmar CPF">
+        <input type="text" id="cpf" name="cpf" readonly>
+        <input type="submit" value="Buscar">
     </form>
+
+    <div id="tecladoNumerico">
+        <!-- O teclado numérico será gerado pelo JavaScript -->
+    </div>
+
     <!-- Modal -->
     <div id="modal" style="display: none;">
         <div id="modalContent">
@@ -29,6 +31,7 @@
             <button id="fecharModal">Fechar</button>
         </div>
     </div>
+
     <script src="scripts.js"></script>
 </body>
 
