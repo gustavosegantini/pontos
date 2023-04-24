@@ -1,38 +1,45 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registro de Ponto</title>
-    <link rel="stylesheet" href="styles.css">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Registro de Ponto</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
-
 <body>
-    <h1>Registro de Ponto</h1>
+  <h1>Registro de Ponto</h1>
 
-    <form id="cpfForm">
-        <label for="cpf">CPF:</label>
-        <input type="text" id="cpf" name="cpf" readonly>
-        <input type="submit" value="Buscar">
-    </form>
+  <div id="num-pad">
+    <input type="text" id="cpf" readonly>
+    <div class="num" data-num="1">1</div>
+    <div class="num" data-num="2">2</div>
+    <div class="num" data-num="3">3</div>
+    <div class="num" data-num="4">4</div>
+    <div class="num" data-num="5">5</div>
+    <div class="num" data-num="6">6</div>
+    <div class="num" data-num="7">7</div>
+    <div class="num" data-num="8">8</div>
+    <div class="num" data-num="9">9</div>
+    <div class="num" data-num="0">0</div>
+    <div id="submit">Confirmar</div>
+  </div>
 
-    <div id="tecladoNumerico">
-        <!-- O teclado numérico será gerado pelo JavaScript -->
+  <!-- Modal -->
+  <div id="modal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h2>Detalhes do Registro de Ponto</h2>
+      <p id="nome"></p>
+      <p id="cargo"></p>
+      <p id="hora_entrada"></p>
+      <p id="intervalo_inicio"></p>
+      <p id="intervalo_fim"></p>
+      <p id="hora_saida"></p>
+      <button id="confirmar">Confirmar Registro</button>
     </div>
+  </div>
 
-    <!-- Modal -->
-    <div id="modal" style="display: none;">
-        <div id="modalContent">
-            <h2>Informações do Funcionário</h2>
-            <div id="infoFuncionario"></div>
-            <button id="registrarPonto">Registrar Ponto</button>
-            <button id="fecharModal">Fechar</button>
-        </div>
-    </div>
-
-    <script src="scripts.js"></script>
+  <script src="index.js"></script>
 </body>
-
 </html>
