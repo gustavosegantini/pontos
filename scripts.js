@@ -65,8 +65,16 @@ $("#cpfForm").on("submit", function (e) {
                 const data = JSON.parse(response);
                 const funcionario = data.employee;
                 const ultimoRegistro = data.lastRecord;
+                const hoje = new Date().toISOString().split("T")[0];
 
-                showEmployeeInfo(funcionario, ultimoRegistro);
+                infoFuncionario.html(`
+                    <p>Nome: ${funcionario.nome}</p>
+                    <p>Cargo: ${funcionario.cargo}</p>
+                    <p>Entrada: ${ultimoRegistro && ultimoRegistro.date === hoje ? ultimoRegistro.hora_entrada || '-' : '-'}</p>
+                    <p>Início do Intervalo: ${ultimoRegistro && ultimoRegistro.date === hoje ? ultimoRegistro.intervalo_inicio || '-' : '-'}</p>
+                    <p>Fim do Intervalo: ${ultimoRegistro && ultimoRegistro.date === hoje ? ultimoRegistro.intervalo_fim || '-' : '-'}</p>
+                    <p>Saída: ${ultimoRegistro && ultimoRegistro.date === hoje ? ultimoRegistro.hora_saida || '-' : '-'}</p>
+                `);
                 modal.show();
             } else {
                 alert("Funcionário não encontrado.");
