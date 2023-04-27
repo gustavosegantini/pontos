@@ -62,12 +62,11 @@ $("#cpfForm").on("submit", function (e) {
     if (cpf.length === 11) {
         $.post("buscar_funcionario.php", { cpf }, function (response) {
             if (response) {
-                const result = JSON.parse(response);
-                const funcionario = result.employee;
-                const lastRecord = result.lastRecord;
+                const data = JSON.parse(response);
+                const funcionario = data.employee;
+                const ultimoRegistro = data.lastRecord;
 
-                showEmployeeInfo(funcionario, lastRecord); // Chame a função showEmployeeInfo()
-
+                showEmployeeInfo(funcionario, ultimoRegistro);
                 modal.show();
             } else {
                 alert("Funcionário não encontrado.");
@@ -77,6 +76,7 @@ $("#cpfForm").on("submit", function (e) {
         alert("Por favor, insira um CPF válido.");
     }
 });
+
 
 $("#fecharModal").on("click", function () {
     modal.hide();
