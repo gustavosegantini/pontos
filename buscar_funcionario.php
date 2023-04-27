@@ -8,7 +8,8 @@ $result = $conn->query($sql);
 
 if ($result->num_rows > 0) {
     $funcionario = $result->fetch_assoc();
-    echo json_encode($funcionario);
+    echo json_encode(["employee" => $funcionario, "lastRecord" => $ultimoRegistro]);
+
 } else {
     echo "";
 }

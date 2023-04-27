@@ -27,10 +27,12 @@
         <div id="modalContent">
             <h2>Informações do Funcionário</h2>
             <div id="infoFuncionario"></div>
+            <div id="registroInfo"></div> <!-- Adicione esta linha -->
             <button id="registrarPonto">Registrar Ponto</button>
             <button id="fecharModal">Fechar</button>
         </div>
     </div>
+
 
     <script src="scripts.js"></script>
 </body>

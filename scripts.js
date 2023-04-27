@@ -30,9 +30,29 @@ $("#apagarCPF").on("click", function () {
     cpfInput.val("");
 });
 
+// Função para exibir informações do funcionário e horários no modal
+function showEmployeeInfo(employee, lastRecord) {
+    $("#infoFuncionario").html(`
+        <p>Nome: ${employee.nome}</p>
+        <p>Cargo: ${employee.cargo}</p>
+    `);
+
+    let registroInfo = "<p>Hoje não há registro de ponto.</p>";
+
+    if (lastRecord) {
+        registroInfo = `
+            <p>Entrada: ${lastRecord.hora_entrada || "---"}</p>
+            <p>Início do intervalo: ${lastRecord.intervalo_inicio || "---"}</p>
+            <p>Fim do intervalo: ${lastRecord.intervalo_fim || "---"}</p>
+            <p>Saída: ${lastRecord.hora_saida || "---"}</p>
+        `;
+    }
+
+    $("#registroInfo").html(registroInfo);
+}
+
 // Modal
 const modal = $("#modal");
-const infoFuncionario = $("#infoFuncionario");
 
 $("#cpfForm").on("submit", function (e) {
     e.preventDefault();
@@ -41,15 +61,12 @@ $("#cpfForm").on("submit", function (e) {
     if (cpf.length === 11) {
         $.post("buscar_funcionario.php", { cpf }, function (response) {
             if (response) {
-                const funcionario = JSON.parse(response);
-                infoFuncionario.html(`
-            <p>Nome: ${funcionario.nome}</p>
-            <p>Cargo: ${funcionario.cargo}</p>
-            <p>Entrada: ${funcionario.hora_entrada || '-'}</p>
-            <p>Início do Intervalo: ${funcionario.intervalo_inicio || '-'}</p>
-            <p>Fim do Intervalo: ${funcionario.intervalo_fim || '-'}</p>
-            <p>Saída: ${funcionario.hora_saida || '-'}</p>
-            `);
+                const result = JSON.parse(response);
+                const funcionario = result.employee;
+                const lastRecord = result.lastRecord;
+
+                showEmployeeInfo(funcionario, lastRecord); // Chame a função showEmployeeInfo()
+
                 modal.show();
             } else {
                 alert("Funcionário não encontrado.");
