@@ -16,9 +16,14 @@ if ($result->num_rows > 0) {
 
     $sqlDataDoUltimoRegistro = "SELECT MAX(data) as data FROM registro_pontos WHERE funcionario_id='$funcionario_id'";
     $resultDataDoUltimoRegistro = $conn->query($sqlDataDoUltimoRegistro);
-    $dataDoUltimoRegistro = $resultDataDoUltimoRegistro->fetch_assoc()['data'];
+    $dataDoUltimoRegistroRow = $resultDataDoUltimoRegistro->fetch_assoc();
+    $dataDoUltimoRegistro = $dataDoUltimoRegistroRow ? $dataDoUltimoRegistroRow['data'] : null;
 
-    echo json_encode(["employee" => $funcionario, "lastRecord" => array_merge($ultimoRegistro, ["date" => $dataDoUltimoRegistro])]);
+    if ($ultimoRegistro && $dataDoUltimoRegistro) {
+        echo json_encode(["employee" => $funcionario, "lastRecord" => array_merge($ultimoRegistro, ["date" => $dataDoUltimoRegistro])]);
+    } else {
+        echo json_encode(["employee" => $funcionario, "lastRecord" => null]);
+    }
 } else {
     echo "";
 }
