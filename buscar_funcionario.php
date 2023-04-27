@@ -8,8 +8,17 @@ $result = $conn->query($sql);
 
 if ($result->num_rows > 0) {
     $funcionario = $result->fetch_assoc();
-    echo json_encode(["employee" => $funcionario, "lastRecord" => array_merge($ultimoRegistro, ["date" => $dataDoUltimoRegistro])]);
+    $funcionario_id = $funcionario['id'];
 
+    $sqlUltimoRegistro = "SELECT * FROM registro_pontos WHERE funcionario_id='$funcionario_id' ORDER BY id DESC LIMIT 1";
+    $resultUltimoRegistro = $conn->query($sqlUltimoRegistro);
+    $ultimoRegistro = $resultUltimoRegistro->fetch_assoc();
+
+    $sqlDataDoUltimoRegistro = "SELECT MAX(data) as data FROM registro_pontos WHERE funcionario_id='$funcionario_id'";
+    $resultDataDoUltimoRegistro = $conn->query($sqlDataDoUltimoRegistro);
+    $dataDoUltimoRegistro = $resultDataDoUltimoRegistro->fetch_assoc()['data'];
+
+    echo json_encode(["employee" => $funcionario, "lastRecord" => array_merge($ultimoRegistro, ["date" => $dataDoUltimoRegistro])]);
 } else {
     echo "";
 }
