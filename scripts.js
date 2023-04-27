@@ -39,7 +39,7 @@ function showEmployeeInfo(employee, lastRecord) {
 
     let registroInfo = "<p>Hoje não há registro de ponto.</p>";
 
-    if (lastRecord) {
+    if (lastRecord && lastRecord.date === new Date().toLocaleDateString()) {
         registroInfo = `
             <p>Entrada: ${lastRecord.hora_entrada || "---"}</p>
             <p>Início do intervalo: ${lastRecord.intervalo_inicio || "---"}</p>
@@ -50,6 +50,7 @@ function showEmployeeInfo(employee, lastRecord) {
 
     $("#registroInfo").html(registroInfo);
 }
+
 
 // Modal
 const modal = $("#modal");
