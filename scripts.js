@@ -54,6 +54,7 @@ function showEmployeeInfo(employee, lastRecord) {
 
 // Modal
 const modal = $("#modal");
+const infoFuncionario = $("#infoFuncionario"); // Adicione esta linha
 
 $("#cpfForm").on("submit", function (e) {
     e.preventDefault();
@@ -61,20 +62,13 @@ $("#cpfForm").on("submit", function (e) {
 
     if (cpf.length === 11) {
         $.post("buscar_funcionario.php", { cpf }, function (response) {
+            console.log("Resposta do servidor:", response);
             if (response) {
                 const data = JSON.parse(response);
                 const funcionario = data.employee;
                 const ultimoRegistro = data.lastRecord;
-                const hoje = new Date().toISOString().split("T")[0];
 
-                infoFuncionario.html(`
-                    <p>Nome: ${funcionario.nome}</p>
-                    <p>Cargo: ${funcionario.cargo}</p>
-                    <p>Entrada: ${ultimoRegistro && ultimoRegistro.date === hoje ? ultimoRegistro.hora_entrada || '-' : '-'}</p>
-                    <p>Início do Intervalo: ${ultimoRegistro && ultimoRegistro.date === hoje ? ultimoRegistro.intervalo_inicio || '-' : '-'}</p>
-                    <p>Fim do Intervalo: ${ultimoRegistro && ultimoRegistro.date === hoje ? ultimoRegistro.intervalo_fim || '-' : '-'}</p>
-                    <p>Saída: ${ultimoRegistro && ultimoRegistro.date === hoje ? ultimoRegistro.hora_saida || '-' : '-'}</p>
-                `);
+                showEmployeeInfo(funcionario, ultimoRegistro);
                 modal.show();
             } else {
                 alert("Funcionário não encontrado.");

@@ -23,15 +23,14 @@
     </div>
 
     <!-- Modal -->
-    <div id="modal" style="display: none;">
-        <div id="modalContent">
-            <h2>Informações do Funcionário</h2>
-            <div id="infoFuncionario"></div>
-            <div id="registroInfo"></div> <!-- Adicione esta linha -->
-            <button id="registrarPonto">Registrar Ponto</button>
-            <button id="fecharModal">Fechar</button>
-        </div>
+    <div id="modalContent">
+        <h2>Informações do Funcionário</h2>
+        <div id="infoFuncionario"></div>
+        <div id="registroInfo"></div> <!-- Adicione esta linha -->
+        <button id="registrarPonto">Registrar Ponto</button>
+        <button id="fecharModal">Fechar</button>
     </div>
+
 
 
     <script src="scripts.js"></script>
